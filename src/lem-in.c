@@ -1,7 +1,7 @@
 #include "../include/lem-in.h"
 #include "../libft/includes/libft.h"
 
-int	main(int argc, char ** argv)
+int	main(int argc, char **argv)
 {
 	t_struct	s;
 
@@ -11,6 +11,7 @@ int	main(int argc, char ** argv)
 		ft_printf("ERROR\n");
 		return(1);
 	}
+	print_rooms(&s);
 	ft_printf("OK\n");
 	return (0);
 }

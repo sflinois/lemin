@@ -26,17 +26,6 @@ char		*ft_strjoin_freestr(char *str, char *buf)
 	return (str);
 }
 
-char		*ft_strndup(const char *s1, size_t n)
-{
-	char	*ret;
-
-	ret = ft_strnew(n);
-	if (!ret)
-		return (NULL);
-	ret = ft_strncpy(ret, s1, n);
-	return (ret);
-}
-
 int			ft_strclen(const char *str, int c)
 {
 	size_t	i;

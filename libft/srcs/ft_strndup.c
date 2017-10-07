@@ -16,18 +16,11 @@
 
 char	*ft_strndup(const char *s1, size_t n)
 {
-	char		*s2;
-	size_t		len;
+	char	*ret;
 
-	len = 0;
-	while (s1[len] && len < n)
-		len++;
-	if (n < len)
-		len = n;
-	if (!(s2 = (char*)malloc(sizeof(char) * (len + 1))))
+	ret = ft_strnew(n);
+	if (!ret)
 		return (NULL);
-	ft_bzero((void*)s2, len + 1);
-	while (len-- > 0)
-		s2[len] = s1[len];
-	return (s2);
+	ret = ft_strncpy(ret, s1, n);
+	return (ret);
 }

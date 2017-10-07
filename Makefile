@@ -18,7 +18,7 @@ CCGREEN = "\033[0;32m"
 CCEND = "\033[0m"
 
 SRC_PATH = src
-SRC_NAME = lem-in.c init.c parsing.c
+SRC_NAME = lem-in.c init.c parsing.c check_line.c print.c
 OBJ_PATH = objs
 CPPFLAGS = -Iincludes
 
@@ -28,7 +28,7 @@ LDLIBS = -lft
 
 NAME = lem-in
 
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
