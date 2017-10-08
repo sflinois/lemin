@@ -34,6 +34,7 @@ void			init_struct(t_struct *s);
 int			pars_args(int argc, char **argv, t_struct *s);
 int			is_room_line(char *line);
 int			is_path_line(char *line);
+int			is_room_dup(t_struct *s, t_room room);
 int			insert_path(char *line, t_struct *s);
 int			insert_room(char *line, t_struct *s, int place);
 #endif

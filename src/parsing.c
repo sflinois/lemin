@@ -16,7 +16,7 @@ int	get_ants(char *line, t_struct *s)
 	return (-1);
 }
 
-int	get_room(char *line, t_struct *s, int place)
+int	new_room(char *line, t_struct *s, int place)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ int	get_room(char *line, t_struct *s, int place)
 	return (-1);
 }
 
-int	get_path(char *line, t_struct *s)
+int	new_path(char *line, t_struct *s)
 {
 	int	i;
 
@@ -64,7 +64,6 @@ int	pars_args(int argc, char **argv, t_struct *s)
 	line = NULL;
 	line_type = 0;
 	fd = open(argv[1], O_RDONLY);
-	// gnl a fix, certaines intéractions chelous, attention !
 	while (get_next_line(fd, &line) > 0 && line_type >= 0)
 	{
 		ft_printf("%s \n", line);
@@ -77,10 +76,10 @@ int	pars_args(int argc, char **argv, t_struct *s)
 			else if (line_type == 1 && ft_strcmp(line, "##end") == 0)
 				line_type = 3;
 			else
-				line_type = get_room(line, s, line_type);
+				line_type = new_room(line, s, line_type);
 		}
 		else if (line_type == 4)
-			line_type = get_path(line, s);
+			line_type = new_path(line, s);
 		free(line);
 	}
 	free(line);

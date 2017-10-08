@@ -38,3 +38,19 @@ int	is_path_line(char *line)
 		i++;
 	return (line[i] == '\0' ? 4 : 0);
 }
+
+int	is_room_dup(t_struct *s, t_room room)
+{
+	int		i;
+
+	i = 0;
+	while(i < s->nb_rooms)
+	{
+		if (ft_strcmp(s->rooms[i].name, room.name) == 0)
+			return (1);
+		if (ft_strcmp(s->rooms[i].x, room.x) == 0 && ft_strcmp(s->rooms[i].y, room.y) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}

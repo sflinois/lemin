@@ -13,11 +13,34 @@ void	init_struct(t_struct *s)
 	s->end = -1;
 }
 
+t_room	get_room(char *line)
+{
+	t_room	ret;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (line[i] != ' ')
+		i++;	
+	ret.name = ft_strndup(line, i);
+	i++;
+	j = i;
+	while (line[i] != ' ')
+		i++;
+	ret.x = ft_strndup(line + j, i - j);
+	i++;
+	j = i;
+	while (ft_isdigit(line[i]) || line[i] == '-')
+		i++;
+	ret.y = ft_strndup(line + j, i - j);
+	return (ret);
+}
+
 int	create_new_room(t_struct *s)
 {
 	t_room	*new_rooms;
 	int	i;
-	
+
 	if (!(new_rooms = (t_room*)ft_memalloc(sizeof(t_room) * (s->nb_rooms + 1))))
 		return (-1);
 	i = 0;
@@ -41,26 +64,17 @@ int	create_new_room(t_struct *s)
 
 int	insert_room(char *line, t_struct *s, int place)
 {
-	int	i_room;
-	int	i;
-	int	j;
+	int		i_room;
+	t_room	new_room;
 
+	new_room = get_room(line);
+	if (is_room_dup(s, new_room))
+		return (-1);
 	if((i_room = create_new_room(s)) == -1)
 		return (-1);
-	i = 0;
-	while (line[i] != ' ')
-		i++;	
-	s->rooms[i_room].name = ft_strndup(line, i);
-	i++;
-	j = i;
-	while (line[i] != ' ')
-		i++;
-	s->rooms[i_room].x = ft_strndup(line + j, i - j);
-	i++;
-	j = i;
-	while (ft_isdigit(line[i]) || line[i] == '-')
-		i++;
-	s->rooms[i_room].y = ft_strndup(line + j, i - j);
+	s->rooms[i_room].name = new_room.name;
+	s->rooms[i_room].x = new_room.x;
+	s->rooms[i_room].y = new_room.y;
 	s->rooms[i_room].status = place;
 	if (place == 2)
 	{
