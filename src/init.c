@@ -50,7 +50,7 @@ int	create_new_room(t_struct *s)
 		new_rooms[i].x = ft_strdup(s->rooms[i].x);
 		new_rooms[i].y = ft_strdup(s->rooms[i].y);
 		new_rooms[i].status = s->rooms[i].status;
-		new_rooms[i].dist = 0;
+		new_rooms[i].is_used = 0;
 		new_rooms[i].paths = NULL;
 		new_rooms[i].nb_paths  = 0;
 		free(s->rooms[i].name);
@@ -79,7 +79,7 @@ int	insert_room(char *line, t_struct *s, int place)
 	s->rooms[i_room].x = new_room.x;
 	s->rooms[i_room].y = new_room.y;
 	s->rooms[i_room].status = place;
-	s->rooms[i_room].dist = 0;
+	s->rooms[i_room].is_used = 0;
 	s->rooms[i_room].paths = NULL;
 	s->rooms[i_room].nb_paths  = 0;
 	if (place == 2)
