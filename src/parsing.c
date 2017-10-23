@@ -58,11 +58,8 @@ int	is_anthill_ok(int line_type, t_struct *s)
 		return (0);
 	if (s->rooms[s->start].nb_paths == 0 || s->rooms[s->end].nb_paths == 0)
 		return (0);
-	i = 0;
-	quick_paths = get_quick_path(s);
-	quick_paths = (t_room**)ft_memalloc(sizeof(t_room*) * s->nb_rooms);
-	quick_paths[0] = &(s->rooms[s->end]);
-	
+	i = s->rooms[s->start].nb_paths <= s->rooms[s->end].nb_paths ? s->rooms[s->start].nb_paths : s->rooms[s->end].nb_paths;
+	quick_paths = resolve(s, i);
 	return (line_type < 0 ? 0 : 1);
 }
 

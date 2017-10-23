@@ -1,7 +1,7 @@
 #include "../include/lem-in.h"
 #include "../libft/includes/libft.h"
 
-t_room		**get_quick_path(t_struct *s)
+t_room		**resolve(t_struct *s, int nb_paths)
 {
 	/*
 	int		is_path_complete;
@@ -18,5 +18,6 @@ t_room		**get_quick_path(t_struct *s)
 	}
 	*/
 	s = NULL;
+	nb_paths = 0;
 	return (NULL);
 }
