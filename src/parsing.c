@@ -22,7 +22,7 @@ int	new_room(char *line, t_struct *s, int place)
 	i = 0;
 	if (*line == '#' && place == 1)
 		return (1);
-	else if (*line == 'L' || *line == '-' || *line == ' ' || *line == '#')
+	else if (*line == 'L' || *line == '-' || *line == ' ' || *line == '#' || *line == '\n')
 		return (-1);
 	else if (is_path_line(line))
 	{
@@ -51,7 +51,7 @@ int	new_path(char *line, t_struct *s)
 
 int	is_anthill_ok(int line_type, t_struct *s)
 {
-	t_room		**quick_path;
+	t_room		**quick_paths;
 	int			i;
 
 	if (s->start == -1 || s->end == -1 || s->nb_ants < 1)
@@ -59,14 +59,9 @@ int	is_anthill_ok(int line_type, t_struct *s)
 	if (s->rooms[s->start].nb_paths == 0 || s->rooms[s->end].nb_paths == 0)
 		return (0);
 	i = 0;
-	while (i < s->rooms[s->end].nb_paths)
-	{
-		s->rooms[s->end].paths[i]->dist = 1;
-		i++;
-	}
-	quick_path = get_quick_path(s);
-	quick_path = (t_room**)ft_memalloc(sizeof(t_room*) * s->nb_rooms);
-	quick_path[0] = &(s->rooms[s->end]);
+	quick_paths = get_quick_path(s);
+	quick_paths = (t_room**)ft_memalloc(sizeof(t_room*) * s->nb_rooms);
+	quick_paths[0] = &(s->rooms[s->end]);
 	
 	return (line_type < 0 ? 0 : 1);
 }

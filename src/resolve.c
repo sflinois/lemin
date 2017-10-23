@@ -3,6 +3,7 @@
 
 t_room		**get_quick_path(t_struct *s)
 {
+	/*
 	int		is_path_complete;
 	int		path_length;
 	int		i;
@@ -13,7 +14,9 @@ t_room		**get_quick_path(t_struct *s)
 	{
 		i = 0;
 		while(i < s->nb_rooms)
-
+			;
 	}
+	*/
+	s = NULL;
 	return (NULL);
 }

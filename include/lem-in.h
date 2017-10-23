@@ -20,7 +20,7 @@ typedef struct		s_room
 	char			*x;
 	char			*y;
 	int				status;
-	int				dist;
+	int				is_used;
 	struct s_room	**paths;
 	int				nb_paths;
 }					t_room;
@@ -30,6 +30,13 @@ typedef struct		s_ant
 	int				num;
 	t_room			*room;
 }					t_ant;
+
+typedef struct		s_res
+{
+	int				nb_f_paths;
+	t_room			***f_paths;
+	int				nb_turns;
+}					t_res;
 
 typedef struct		s_struct
 {
