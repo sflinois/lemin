@@ -4,6 +4,7 @@
 void	print_rooms(t_struct *s)
 {
 	int	i;
+	int	j;
 	
 	i = 0;
 	ft_printf("-- PRINT STRUCT --\n");
@@ -15,6 +16,13 @@ void	print_rooms(t_struct *s)
 	while(i < s->nb_rooms)
 	{
 		ft_printf("(%s) - (%s) - (%s) - (%i)\n", s->rooms[i].name, s->rooms[i].x, s->rooms[i].y, s->rooms[i].status);
+		j = 0;
+		while (j < s->rooms[i].nb_paths)
+		{
+			ft_printf("{%s}", s->rooms[i].paths[j]->name);
+			j++;
+		}
+		ft_printf("\n");
 		i++;
 	}
 }

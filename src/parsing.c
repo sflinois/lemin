@@ -1,4 +1,3 @@
-
 #include "../include/lem-in.h"
 #include "../libft/includes/libft.h"
 #include <stdio.h>
@@ -11,7 +10,7 @@ int	get_ants(char *line, t_struct *s)
 	{
 		s->nb_ants = ft_atoi(line);
 		ft_printf("nb ants: %d\n", s->nb_ants);
-		return (1);
+		return (s->nb_ants > 0 ? 1 : -1);
 	}
 	return (-1);
 }
@@ -26,9 +25,13 @@ int	new_room(char *line, t_struct *s, int place)
 	else if (*line == 'L' || *line == '-' || *line == ' ' || *line == '#')
 		return (-1);
 	else if (is_path_line(line))
+	{
 		return (insert_path(line, s));
+	}
 	else if (is_room_line(line))
+	{
 		return(insert_room(line, s, place));
+	}
 	return (-1);
 }
 
@@ -48,8 +51,23 @@ int	new_path(char *line, t_struct *s)
 
 int	is_anthill_ok(int line_type, t_struct *s)
 {
-	if (s->start == -1 || s->end == -1)
+	t_room		**quick_path;
+	int			i;
+
+	if (s->start == -1 || s->end == -1 || s->nb_ants < 1)
 		return (0);
+	if (s->rooms[s->start].nb_paths == 0 || s->rooms[s->end].nb_paths == 0)
+		return (0);
+	i = 0;
+	while (i < s->rooms[s->end].nb_paths)
+	{
+		s->rooms[s->end].paths[i]->dist = 1;
+		i++;
+	}
+	quick_path = get_quick_path(s);
+	quick_path = (t_room**)ft_memalloc(sizeof(t_room*) * s->nb_rooms);
+	quick_path[0] = &(s->rooms[s->end]);
+	
 	return (line_type < 0 ? 0 : 1);
 }
 
