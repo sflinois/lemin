@@ -46,6 +46,8 @@ typedef struct		s_struct
 	int				end;
 	t_room			*rooms;
 	t_ant			*ants;
+	t_res			tmp;
+	t_res			res;
 }					t_struct;
 
 void		print_rooms(t_struct *s);
@@ -56,5 +58,5 @@ int			is_path_line(char *line);
 int			is_room_dup(t_struct *s, t_room room);
 int			insert_path(char *line, t_struct *s);
 int			insert_room(char *line, t_struct *s, int place);
-t_room		**resolve(t_struct *s, int nb_paths);
+int			resolve(t_struct *s, int nb_paths);
 #endif

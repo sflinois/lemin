@@ -1,23 +1,23 @@
 #include "../include/lem-in.h"
 #include "../libft/includes/libft.h"
 
-t_room		**resolve(t_struct *s, int nb_paths)
+int		resolve(t_struct *s, int nb_paths)
 {
-	/*
-	int		is_path_complete;
-	int		path_length;
 	int		i;
+	int		i_tmp;
 
-	path_length = 0;
-	is_path_complete = 0;
-	while (is_path_complete == 0)
+	if (nb_paths > 0)
+		return (0);
+	i = 0;
+	while (i < s->rooms[s->start].nb_paths)
 	{
-		i = 0;
-		while(i < s->nb_rooms)
-			;
+		if (!s->rooms[s->start].paths[i]->is_used)
+		{
+			i_tmp = get_quick_path(s, i); //map the path and add it to t_res tmp in s;
+			resolve(s, nb_paths - 1);
+			get_best_paths(s);
+			del_paths(s, i_tmp);
+		}
 	}
-	*/
-	s = NULL;
-	nb_paths = 0;
-	return (NULL);
+	return (1);
 }

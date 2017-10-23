@@ -51,16 +51,19 @@ int	new_path(char *line, t_struct *s)
 
 int	is_anthill_ok(int line_type, t_struct *s)
 {
-	t_room		**quick_paths;
 	int			i;
 
 	if (s->start == -1 || s->end == -1 || s->nb_ants < 1)
 		return (0);
 	if (s->rooms[s->start].nb_paths == 0 || s->rooms[s->end].nb_paths == 0)
 		return (0);
-	i = s->rooms[s->start].nb_paths <= s->rooms[s->end].nb_paths ? s->rooms[s->start].nb_paths : s->rooms[s->end].nb_paths;
-	quick_paths = resolve(s, i);
-	return (line_type < 0 ? 0 : 1);
+	i = s->rooms[s->start].nb_paths <= s->rooms[s->end].nb_paths ?
+	   	s->rooms[s->start].nb_paths : s->rooms[s->end].nb_paths;
+	s->res.nb_f_paths = 0;
+	s->res.f_paths = NULL;
+	s->res.nb_turns = 0;
+	resolve(s, i);
+	return (line_type < 0 || s->res.nb_f_paths == 0 ? 0 : 1);
 }
 
 int	pars_args(int argc, char **argv, t_struct *s)
