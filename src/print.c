@@ -12,10 +12,10 @@ void	print_rooms(t_struct *s)
 	ft_printf("nb_rooms : %i\n", s->nb_rooms);
 	ft_printf("start : %i\n", s->start);
 	ft_printf("end : %i\n", s->end);
-	ft_printf("(NAME) - (X) - (Y) - (STATUS)\n");
+	ft_printf("ROOMS :\n");
 	while(i < s->nb_rooms)
 	{
-		ft_printf("(%s) - (%s) - (%s) - (%i)\n", s->rooms[i].name, s->rooms[i].x, s->rooms[i].y, s->rooms[i].status);
+		ft_printf("(%s) - [%i] => ", s->rooms[i].name, s->rooms[i].is_used);
 		j = 0;
 		while (j < s->rooms[i].nb_paths)
 		{
@@ -25,4 +25,44 @@ void	print_rooms(t_struct *s)
 		ft_printf("\n");
 		i++;
 	}
+	ft_printf("------------\n");
+}
+
+void	print_res(t_res res, t_struct *s)
+{
+	int		i;
+	int		j;
+
+	ft_printf("-- PRINT RET --\n");
+	ft_printf("nb_f_paths : %i\n", res.nb_f_paths);
+	ft_printf("nb_turns : %i\n", res.nb_turns);
+	i = 0;
+	while (i < res.nb_f_paths)
+	{
+		j = 0;
+		//ft_printf("path p : %p\n", res.f_paths[i]);
+		while(res.f_paths[i][j] != &s->rooms[s->start])
+		{
+			ft_printf("[%s, %i] ", res.f_paths[i][j]->name, res.f_paths[i][j]->is_used, res.f_paths[i][j]);
+			j++;
+		}
+		ft_printf("[%s, %i]\n", res.f_paths[i][j]->name, res.f_paths[i][j]->is_used, res.f_paths[i][j]);
+		i++;
+	}
+	ft_printf("------------\n");
+
+}
+
+void	print_path(t_room** path, int length)
+{
+	int		i;
+
+	i = 0;
+	while (i < length)
+	{
+		if (path[i])
+			ft_printf("[%s   %i]", path[i]->name, path[i]->is_used);
+		i++;
+	}
+	ft_printf("\n");
 }

@@ -11,7 +11,7 @@ int	main(int argc, char **argv)
 		ft_printf("ERROR\n");
 		return(1);
 	}
-	print_rooms(&s);
 	ft_printf("OK\n");
+	print_res(s.res, &s);
 	return (0);
 }

@@ -1,16 +1,17 @@
 #include "../include/lem-in.h"
 #include "../libft/includes/libft.h"
+#include <stdlib.h>
 
 /*
-**
-** fonction a verif avec des prints
-**
-**
-**
-**
-*/
+ **
+ ** fonction a verif avec des prints
+ **
+ **
+ **
+ **
+ */
 
-int		insert_path(t_struct *s)
+int		create_new_path(t_struct *s)
 {
 	t_room	**new_path;
 	t_room	***new_f_paths;
@@ -25,11 +26,16 @@ int		insert_path(t_struct *s)
 		return (-1);
 	new_path[0] = &(s->rooms[s->end]);
 	i_f_rooms = 1;
+//	print_rooms(s);
+	//fait les checks sur le nouveau chemin
+	//parcour depuis la fin de mon chemin
 	while (i_f_rooms < s->rooms[s->end].is_used - 1)
 	{
 		i_paths = 0;
+		//parcour des paths dans une room pour remonter le chemin
 		while(i_paths < new_path[i_f_rooms - 1]->nb_paths)
 		{
+
 			if (new_path[i_f_rooms - 1]->paths[i_paths]->is_used == new_path[i_f_rooms - 1]->is_used - 1)
 			{
 				new_path[i_f_rooms] = new_path[i_f_rooms - 1]->paths[i_paths];
@@ -41,7 +47,9 @@ int		insert_path(t_struct *s)
 		}
 		i_f_rooms++;
 	}
-	new_path[i_f_rooms] = s->rooms[s->start];
+	if (new_path[i_f_rooms - 1] != &s->rooms[s->end])
+		new_path[i_f_rooms - 1]->is_used = 1;
+	new_path[i_f_rooms] = &s->rooms[s->start];
 	i_paths = 0;
 	while (i_paths < s->tmp.nb_f_paths)
 	{
@@ -51,7 +59,9 @@ int		insert_path(t_struct *s)
 	new_f_paths[i_paths] = new_path;
 	free(s->tmp.f_paths);
 	s->tmp.f_paths = new_f_paths;
+	s->tmp.nb_f_paths++;
 	s->rooms[s->end].is_used = 0;
+//	print_res(s->tmp, s);
 	return (s->tmp.nb_f_paths);
 }
 
@@ -60,11 +70,11 @@ int		get_quick_path(t_struct *s, int i)
 	int		map_room;
 	int		i_room;
 	int		i_used;
-	int		i_paths
+	int		i_paths;
 
 	i_used = 2;
 	s->rooms[s->start].paths[i]->is_used = 2;
-	while (s->rooms[s->end].is_used == 0 || map_room != 0)
+	while (s->rooms[s->end].is_used == 0 && map_room != 0)
 	{
 		i_room = 0;
 		map_room = 0;
@@ -75,8 +85,7 @@ int		get_quick_path(t_struct *s, int i)
 				i_paths = 0;
 				while (i_paths < s->rooms[i_room].nb_paths)
 				{
-					if (s->rooms[i_room].paths[i_paths]->is_used == 0 &&
-							s->rooms[i_room].paths[i_paths]->status != 2)
+					if (s->rooms[i_room].paths[i_paths]->is_used == 0 && s->rooms[i_room].paths[i_paths]->status != 2)
 					{
 						s->rooms[i_room].paths[i_paths]->is_used = i_used + 1;
 						map_room++;
@@ -88,8 +97,17 @@ int		get_quick_path(t_struct *s, int i)
 		}
 		i_used++;
 	}
-	i_paths = insert_path(s);
-	return (i_paths);
+	i_paths = create_new_path(s);
+	i_room = 0;
+	while (i_room < s->nb_rooms)
+	{
+		if (s->rooms[i_room].is_used != 1)
+			s->rooms[i_room].is_used = 0;
+		i_room++;
+	}
+	//print_res(s->tmp,s);
+	//print_rooms(s);
+	return (i_paths - 1);
 }
 
 int		get_time_res(int *tab, int nb_paths, int nb_ants)
@@ -97,7 +115,6 @@ int		get_time_res(int *tab, int nb_paths, int nb_ants)
 	int		i_tab;
 	int		max;
 	int		time;
-	int		nb_min;
 
 	max = tab[0];
 	i_tab = 0;
@@ -122,12 +139,11 @@ int		get_time_res(int *tab, int nb_paths, int nb_ants)
 int		replace_res(t_struct *s)
 {
 	int		i_f_paths;
-	int		i_path;
 
 	i_f_paths = 0;
 	while (i_f_paths < s->res.nb_f_paths)
 	{
-		free(s->res.f_paths[i_f_paths])
+		free(s->res.f_paths[i_f_paths]);
 		i_f_paths++;
 	}
 	free(s->res.f_paths);
@@ -144,17 +160,49 @@ int		get_best_paths(t_struct *s)
 	if (!(paths_length = (int*)ft_memalloc(sizeof(int) * s->tmp.nb_f_paths)))
 		return (0);
 	i_tab = 0;
-	while (i_tab < nb_f_paths)
+	while (i_tab < s->tmp.nb_f_paths)
 	{
 		i = 0;
-		while (s->tmp.f_paths[i_tab][i] != s->rooms[s->start])
+		while (s->tmp.f_paths[i_tab][i] != &s->rooms[s->start])
 			i++;
 		paths_length[i_tab] = i;
 		i_tab++;
 	}
-	if (get_time_res(paths_length, s->tmp.nb_f_paths, s->nb_ants) < s->res.nb_turns)
+	s->tmp.nb_turns = get_time_res(paths_length, s->tmp.nb_f_paths, s->nb_ants);
+	if (s->tmp.nb_turns < s->res.nb_turns || s->res.nb_turns == 0)
 		replace_res(s);
 	free(paths_length);
+	return (1);
+}
+
+int		del_paths(t_struct *s, int i_tmp)
+{
+	int		i_tab;
+	int		i_new;
+	t_room	***path_tab;
+
+	if (i_tmp < 0)
+		return (0);
+	if (!(path_tab = (t_room***)ft_memalloc(sizeof(t_room**) * (s->tmp.nb_f_paths - 1))))
+		return (0);
+	i_tab = 0;
+	while(s->tmp.f_paths[i_tmp][i_tab] != &s->rooms[s->start])
+	{
+		s->tmp.f_paths[i_tmp][i_tab]->is_used = 0;
+		i_tab++;
+	}
+	i_new = 0;
+	while (i_new < s->tmp.nb_f_paths)
+	{
+
+		path_tab[i_new] = i_new < i_tmp && i_new + 1 < s->tmp.nb_f_paths
+			? s->tmp.f_paths[i_new] : s->tmp.f_paths[i_new + 1];
+		i_new++;
+	}
+	if (s->res.f_paths != s->tmp.f_paths)
+		free(s->tmp.f_paths);
+	s->tmp.f_paths = path_tab;
+	s->tmp.nb_f_paths--;
 	return (1);
 }
 
@@ -174,7 +222,14 @@ int		resolve(t_struct *s, int nb_paths)
 			resolve(s, nb_paths - 1);
 			if (!get_best_paths(s))
 				return (-1);
-			del_paths(s, i_tmp);
+		//	ft_printf("AVANT DEL\n");
+		//	print_rooms(s);
+		//	print_res(s->res, s);
+			if(!del_paths(s, i_tmp))
+				return (-1);
+		//	ft_printf("APRES DEL\n");
+		//	print_rooms(s);
+		//	ft_printf("=========================\n");
 		}
 		i++;
 	}

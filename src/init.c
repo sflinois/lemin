@@ -11,6 +11,9 @@ void	init_struct(t_struct *s)
 	s->ants = NULL;
 	s->start = -1;
 	s->end = -1;
+	s->res.nb_f_paths = 0;
+	s->res.nb_turns = 0;
+	s->res.f_paths = NULL;
 }
 
 t_room	get_room(char *line)

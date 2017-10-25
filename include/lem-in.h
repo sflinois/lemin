@@ -34,8 +34,8 @@ typedef struct		s_ant
 typedef struct		s_res
 {
 	int				nb_f_paths;
-	t_room			***f_paths;
 	int				nb_turns;
+	t_room			***f_paths;
 }					t_res;
 
 typedef struct		s_struct
@@ -51,6 +51,8 @@ typedef struct		s_struct
 }					t_struct;
 
 void		print_rooms(t_struct *s);
+void		print_res(t_res res, t_struct *s);
+void		print_path(t_room** path, int length);
 void		init_struct(t_struct *s);
 int			pars_args(int argc, char **argv, t_struct *s);
 int			is_room_line(char *line);

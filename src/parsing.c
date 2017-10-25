@@ -9,7 +9,7 @@ int	get_ants(char *line, t_struct *s)
 	if (line && *line && ft_strisdigit(line))
 	{
 		s->nb_ants = ft_atoi(line);
-		ft_printf("nb ants: %d\n", s->nb_ants);
+		//ft_printf("nb ants: %d\n", s->nb_ants);
 		return (s->nb_ants > 0 ? 1 : -1);
 	}
 	return (-1);
@@ -62,7 +62,12 @@ int	is_anthill_ok(int line_type, t_struct *s)
 	s->res.nb_f_paths = 0;
 	s->res.f_paths = NULL;
 	s->res.nb_turns = 0;
+	s->tmp.nb_f_paths = 0;
+	s->tmp.f_paths = NULL;
+	s->tmp.nb_turns = 0;
+	//ft_printf("Test1\n");
 	resolve(s, i);
+	//ft_printf("Test2\n");
 	return (line_type < 0 || s->res.nb_f_paths == 0 ? 0 : 1);
 }
 
@@ -79,7 +84,7 @@ int	pars_args(int argc, char **argv, t_struct *s)
 	fd = open(argv[1], O_RDONLY);
 	while (get_next_line(fd, &line) > 0 && line_type >= 0)
 	{
-		ft_printf("%s \n", line);
+		//ft_printf("%s \n", line);
 		if (line_type == 0)
 			line_type = get_ants(line, s);
 		else if (line_type >= 1 && line_type <= 3)
