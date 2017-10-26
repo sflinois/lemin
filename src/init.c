@@ -8,7 +8,6 @@ void	init_struct(t_struct *s)
 	s->nb_ants = 0;
 	s->nb_rooms = 0;
 	s->rooms = NULL;
-	s->ants = NULL;
 	s->start = -1;
 	s->end = -1;
 	s->res.nb_f_paths = 0;
@@ -55,7 +54,9 @@ int	create_new_room(t_struct *s)
 		new_rooms[i].status = s->rooms[i].status;
 		new_rooms[i].is_used = 0;
 		new_rooms[i].paths = NULL;
-		new_rooms[i].nb_paths  = 0;
+		new_rooms[i].nb_paths = 0;
+		new_rooms[i].ant = 0;
+		new_rooms[i].ants_left = 0;
 		free(s->rooms[i].name);
 		free(s->rooms[i].x);
 		free(s->rooms[i].y);
@@ -85,6 +86,8 @@ int	insert_room(char *line, t_struct *s, int place)
 	s->rooms[i_room].is_used = 0;
 	s->rooms[i_room].paths = NULL;
 	s->rooms[i_room].nb_paths  = 0;
+	s->rooms[i_room].ant = 0;
+	s->rooms[i_room].ants_left = 0;
 	if (place == 2)
 	{
 		if (s->start != -1)

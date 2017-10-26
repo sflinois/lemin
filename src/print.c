@@ -15,7 +15,7 @@ void	print_rooms(t_struct *s)
 	ft_printf("ROOMS :\n");
 	while(i < s->nb_rooms)
 	{
-		ft_printf("(%s) - [%i] => ", s->rooms[i].name, s->rooms[i].is_used);
+		ft_printf("(%s) - [%i] - [%i] - [%i]=> ", s->rooms[i].name, s->rooms[i].is_used, s->rooms[i].ant, s->rooms[i].ants_left);
 		j = 0;
 		while (j < s->rooms[i].nb_paths)
 		{

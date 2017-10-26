@@ -23,19 +23,16 @@ typedef struct		s_room
 	int				is_used;
 	struct s_room	**paths;
 	int				nb_paths;
+	int				ant;
+	int				ants_left;
 }					t_room;
-
-typedef struct		s_ant
-{
-	int				num;
-	t_room			*room;
-}					t_ant;
 
 typedef struct		s_res
 {
 	int				nb_f_paths;
 	int				nb_turns;
 	t_room			***f_paths;
+	int				*nb_ants_path;
 }					t_res;
 
 typedef struct		s_struct
@@ -45,7 +42,6 @@ typedef struct		s_struct
 	int				start;
 	int				end;
 	t_room			*rooms;
-	t_ant			*ants;
 	t_res			tmp;
 	t_res			res;
 }					t_struct;
