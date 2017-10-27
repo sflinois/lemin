@@ -6,5 +6,6 @@ end 1 1
 mid0 2 2
 mid1 3 3
 start-mid0
-mid0-start
-mid1-end
+mid1-start
+mid0-mid1
+start-end

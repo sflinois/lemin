@@ -6,7 +6,7 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:40:16 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/27 15:42:17 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/27 16:16:06 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,10 +219,13 @@ int		resolve(t_struct *s, int nb_paths)
 		{
 			i_tmp = get_quick_path(s, i);
 			resolve(s, nb_paths - 1);
-			if (!get_best_paths(s))
-				return (-1);
-			if (!del_paths(s, i_tmp))
-				return (-1);
+			if (s->tmp.nb_f_paths != 0)
+			{
+				if (!get_best_paths(s))
+					return (-1);
+				if (!del_paths(s, i_tmp))
+					return (-1);
+			}
 		}
 		i++;
 	}

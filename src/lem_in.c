@@ -6,7 +6,7 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:35:24 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/27 15:37:17 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/27 16:04:37 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ int		main(int argc, char **argv)
 		ft_printf("ERROR\n");
 		return (1);
 	}
-	ft_printf("\ntest\n");
 	calc_res(&s);
 	init_res_map(&s);
 	print_resolved_map(&s);
