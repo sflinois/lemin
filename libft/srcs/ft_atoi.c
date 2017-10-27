@@ -6,7 +6,7 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:25:19 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/10 15:01:52 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/27 16:38:58 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int		ft_atoi(const char *str)
 		nb += str[i] - '0';
 		i++;
 	}
-	return (ft_strlen(str) > 10 || (ft_strlen(str) > 9 && ((neg == 1 && nb < 1000000000)
-				|| (neg == -1 && nb < -1000000000))) ? 0 : nb * neg);
+	return (ft_strlen(str) > 10 || (ft_strlen(str) > 9 && ((neg == 1 &&
+		nb < 1000000000) || (neg == -1 && nb < -1000000000))) ? 0 : nb * neg);
 }

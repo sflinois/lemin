@@ -6,11 +6,11 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:31:02 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/26 19:32:45 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/27 16:34:46 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "../include/lem_in.h"
 #include "../libft/includes/libft.h"
 
 void	print_rooms(t_struct *s)

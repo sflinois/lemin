@@ -6,11 +6,11 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:28:02 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/27 16:02:13 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/27 16:34:17 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "../include/lem_in.h"
 #include "../libft/includes/libft.h"
 
 int	is_room_line(char *line)

@@ -6,11 +6,11 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:40:16 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/27 16:16:06 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/27 18:28:51 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "../include/lem_in.h"
 #include "../libft/includes/libft.h"
 #include <stdlib.h>
 
@@ -136,14 +136,6 @@ int		get_time_res(int *tab, int nb_paths, int nb_ants)
 
 int		replace_res(t_struct *s)
 {
-	int		i_f_paths;
-
-	i_f_paths = 0;
-	while (i_f_paths < s->res.nb_f_paths)
-	{
-		//free(s->res.f_paths[i_f_paths]);
-		i_f_paths++;
-	}
 	free(s->res.f_paths);
 	s->res = s->tmp;
 	return (1);
@@ -198,8 +190,12 @@ int		del_paths(t_struct *s, int i_tmp)
 			path_tab[i_new - 1] = s->tmp.f_paths[i_new];
 		i_new++;
 	}
-	if (s->res.f_paths != s->tmp.f_paths)
-		free(s->tmp.f_paths);
+	if (s->res.f_paths)
+	{
+		if (s->res.f_paths != s->tmp.f_paths)
+			free(s->tmp.f_paths);
+
+	}
 	s->tmp.f_paths = path_tab;
 	s->tmp.nb_f_paths--;
 	return (1);

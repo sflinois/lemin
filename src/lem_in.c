@@ -6,11 +6,11 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:35:24 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/27 16:04:37 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/27 18:28:54 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "../include/lem_in.h"
 #include "../libft/includes/libft.h"
 
 #include <stdlib.h>
@@ -144,6 +144,5 @@ int		main(int argc, char **argv)
 	calc_res(&s);
 	init_res_map(&s);
 	print_resolved_map(&s);
-	ft_printf("OK\n");
 	return (0);
 }

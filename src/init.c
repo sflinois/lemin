@@ -6,11 +6,11 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:24:42 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/26 19:26:26 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/27 16:46:03 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lem-in.h"
+#include "../include/lem_in.h"
 #include "../libft/includes/libft.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -173,5 +173,7 @@ int			insert_path(char *line, t_struct *s)
 			i_room = add_path(s, i_room, name1);
 		i_room++;
 	}
+	free(name1);
+	free(name2);
 	return (i_room == -1 ? -1 : 4);
 }
