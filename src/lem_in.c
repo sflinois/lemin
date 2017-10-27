@@ -13,6 +13,7 @@
 #include "../include/lem-in.h"
 #include "../libft/includes/libft.h"
 
+#include <stdlib.h>
 int		init_res_ants(t_struct *s, int *tab, int nb_paths, int nb_ants)
 {
 	int		i_tab;

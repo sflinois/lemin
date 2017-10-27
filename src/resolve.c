@@ -112,6 +112,8 @@ int		get_time_res(int *tab, int nb_paths, int nb_ants)
 	int		max;
 	int		time;
 
+	if (nb_paths == 0)
+		return (500);
 	max = tab[0];
 	i_tab = 0;
 	while (i_tab < nb_paths)
@@ -164,6 +166,7 @@ int		get_best_paths(t_struct *s)
 		paths_length[i_tab] = i;
 		i_tab++;
 	}
+	print_res(s->tmp, s);
 	s->tmp.nb_turns = get_time_res(paths_length, s->tmp.nb_f_paths, s->nb_ants);
 	if (s->tmp.nb_turns < s->res.nb_turns || s->res.nb_turns == 0)
 		replace_res(s);
