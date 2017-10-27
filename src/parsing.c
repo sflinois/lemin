@@ -109,6 +109,6 @@ int	pars_args(int argc, char **argv, t_struct *s)
 			line_type = new_path(line, s);
 		free(line);
 	}
-	free(line);
+	free(line); //pas besoin du free ici je pense => jamais mis et jamais eu de leaks
 	return (is_anthill_ok(line_type, s));
 }

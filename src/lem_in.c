@@ -145,6 +145,8 @@ int		main(int argc, char **argv)
 	calc_res(&s);
 	init_res_map(&s);
 	print_resolved_map(&s);
+	while (1)
+		;
 	ft_printf("OK\n");
 	return (0);
 }

@@ -141,7 +141,7 @@ int		replace_res(t_struct *s)
 	i_f_paths = 0;
 	while (i_f_paths < s->res.nb_f_paths)
 	{
-		free(s->res.f_paths[i_f_paths]);
+		//free(s->res.f_paths[i_f_paths]);
 		i_f_paths++;
 	}
 	free(s->res.f_paths);
@@ -166,7 +166,6 @@ int		get_best_paths(t_struct *s)
 		paths_length[i_tab] = i;
 		i_tab++;
 	}
-	print_res(s->tmp, s);
 	s->tmp.nb_turns = get_time_res(paths_length, s->tmp.nb_f_paths, s->nb_ants);
 	if (s->tmp.nb_turns < s->res.nb_turns || s->res.nb_turns == 0)
 		replace_res(s);
