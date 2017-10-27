@@ -50,6 +50,22 @@ t_room		get_room(char *line)
 	return (ret);
 }
 
+void		switchrooms(t_room **new, t_struct *s, int i)
+{
+	(*new)[i].name = ft_strdup(s->rooms[i].name);
+	(*new)[i].x = ft_strdup(s->rooms[i].x);
+	(*new)[i].y = ft_strdup(s->rooms[i].y);
+	(*new)[i].status = s->rooms[i].status;
+	(*new)[i].is_used = 0;
+	(*new)[i].paths = NULL;
+	(*new)[i].nb_paths = 0;
+	(*new)[i].ant = 0;
+	(*new)[i].ants_left = 0;
+	free(s->rooms[i].name);
+	free(s->rooms[i].x);
+	free(s->rooms[i].y);
+}
+
 int			create_new_room(t_struct *s)
 {
 	t_room	*new_rooms;
@@ -60,18 +76,7 @@ int			create_new_room(t_struct *s)
 	i = 0;
 	while (i < s->nb_rooms)
 	{
-		new_rooms[i].name = ft_strdup(s->rooms[i].name);
-		new_rooms[i].x = ft_strdup(s->rooms[i].x);
-		new_rooms[i].y = ft_strdup(s->rooms[i].y);
-		new_rooms[i].status = s->rooms[i].status;
-		new_rooms[i].is_used = 0;
-		new_rooms[i].paths = NULL;
-		new_rooms[i].nb_paths = 0;
-		new_rooms[i].ant = 0;
-		new_rooms[i].ants_left = 0;
-		free(s->rooms[i].name);
-		free(s->rooms[i].x);
-		free(s->rooms[i].y);
+		switchrooms(&new_rooms, s, i);
 		i++;
 	}
 	if (s->nb_rooms)

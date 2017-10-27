@@ -111,6 +111,8 @@ void	print_resolved_map(t_struct *s)
 					ft_printf("L%02i-%s ", s->res.f_paths[i_paths][i_rooms + 1]->ant, s->res.f_paths[i_paths][i_rooms]->name);
 					if (s->res.f_paths[i_paths][i_rooms] != &s->rooms[s->end])
 						s->res.f_paths[i_paths][i_rooms]->ant = s->res.f_paths[i_paths][i_rooms + 1]->ant;
+					else
+						s->res.f_paths[i_paths][i_rooms]->ants_left--;
 					if (s->res.f_paths[i_paths][i_rooms + 1] != &s->rooms[s->start])
 					{
 						s->res.f_paths[i_paths][i_rooms + 1]->ant = 0;
