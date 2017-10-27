@@ -6,7 +6,7 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:30:29 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/26 19:35:11 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/27 16:02:15 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int	new_path(char *line, t_struct *s)
 	if (*line == '#')
 		return (1);
 	else if (*line == 'L' || *line == '-' || *line == ' ')
-		return (-1);
+		return (-2);
 	else if (is_path_line(line))
 		return (insert_path(line, s));
-	return (-1);
+	return (-2);
 }
 
 int	is_anthill_ok(int line_type, t_struct *s)
@@ -77,8 +77,9 @@ int	is_anthill_ok(int line_type, t_struct *s)
 	s->tmp.nb_f_paths = 0;
 	s->tmp.f_paths = NULL;
 	s->tmp.nb_turns = 0;
+	print_rooms(s);
 	resolve(s, i);
-	return (line_type < 0 || s->res.nb_f_paths == 0 ? 0 : 1);
+	return (line_type == -1 || s->res.nb_f_paths == 0 ? 0 : 1);
 }
 
 int	pars_args(int argc, char **argv, t_struct *s)
