@@ -140,9 +140,9 @@ int		main(int argc, char **argv)
 		ft_printf("ERROR\n");
 		return (1);
 	}
+	ft_printf("\ntest\n");
 	calc_res(&s);
 	init_res_map(&s);
-	print_res(s.res, &s);
 	print_resolved_map(&s);
 	ft_printf("OK\n");
 	return (0);

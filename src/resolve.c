@@ -25,7 +25,7 @@ int		create_new_path(t_struct *s)
 		return (-1);
 	if (!(new_path = (t_room**)ft_memalloc(sizeof(t_room*) * s->rooms[s->end].is_used)))
 		return (-1);
-	if (!(new_f_paths = (t_room***)ft_memalloc(sizeof(t_room**) * s->tmp.nb_f_paths + 1)))
+	if (!(new_f_paths = (t_room***)ft_memalloc(sizeof(t_room**) * (s->tmp.nb_f_paths + 1))))
 		return (-1);
 	new_path[0] = &(s->rooms[s->end]);
 	i_f_rooms = 1;
@@ -70,11 +70,12 @@ int		get_quick_path(t_struct *s, int i)
 	int		i_paths;
 
 	i_used = 2;
+	map_room = 1;
 	s->rooms[s->start].paths[i]->is_used = 2;
 	while (s->rooms[s->end].is_used == 0 && map_room != 0)
 	{
-		i_room = 0;
 		map_room = 0;
+		i_room = 0;
 		while (i_room < s->nb_rooms)
 		{
 			if (s->rooms[i_room].is_used == i_used)
@@ -189,8 +190,10 @@ int		del_paths(t_struct *s, int i_tmp)
 	i_new = 0;
 	while (i_new < s->tmp.nb_f_paths)
 	{
-		path_tab[i_new] = i_new < i_tmp && i_new + 1 < s->tmp.nb_f_paths
-			? s->tmp.f_paths[i_new] : s->tmp.f_paths[i_new + 1];
+		if (i_new < i_tmp)
+			path_tab[i_new] = s->tmp.f_paths[i_new];
+		if (i_new > i_tmp)
+			path_tab[i_new - 1] = s->tmp.f_paths[i_new];
 		i_new++;
 	}
 	if (s->res.f_paths != s->tmp.f_paths)
