@@ -52,6 +52,7 @@ int		calc_res(t_struct *s)
 	int		*paths_length;
 	int		i_tab;
 	int		i;
+	int		ret;
 
 	if (!(paths_length = (int*)ft_memalloc(sizeof(int) * s->res.nb_f_paths)))
 		return (0);
@@ -64,7 +65,9 @@ int		calc_res(t_struct *s)
 		paths_length[i_tab] = i;
 		i_tab++;
 	}
-	if (!init_res_ants(s, paths_length, s->res.nb_f_paths, s->nb_ants))
+	ret = init_res_ants(s, paths_length, s->res.nb_f_paths, s->nb_ants);
+	free(paths_length);
+	if (!ret)
 		return (0);
 	return (1);
 }
@@ -141,8 +144,11 @@ int		main(int argc, char **argv)
 		ft_printf("ERROR\n");
 		return (1);
 	}
+	ft_printf("ok\n");
 	calc_res(&s);
 	init_res_map(&s);
 	print_resolved_map(&s);
+	while (1)
+		;
 	return (0);
 }

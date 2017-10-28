@@ -136,8 +136,37 @@ int		get_time_res(int *tab, int nb_paths, int nb_ants)
 
 int		replace_res(t_struct *s)
 {
+	int	i_paths;
+	int	i_rooms;
+
+	i_paths = 0;
+	while(i_paths < s->res.nb_f_paths)
+	{
+		free(s->res.f_paths[i_paths]);
+		i_paths++;
+	}
 	free(s->res.f_paths);
-	s->res = s->tmp;
+	s->res.nb_f_paths = s->tmp.nb_f_paths;
+	s->res.nb_turns = s->tmp.nb_turns;
+	if (!(s->res.f_paths = (t_room***)ft_memalloc(sizeof(t_room**) * (s->res.nb_f_paths))))
+		return (-1);
+	i_paths = 0;
+	while(i_paths < s->res.nb_f_paths)
+	{
+		i_rooms = 0;
+		while (s->tmp.f_paths[i_paths][i_rooms] != &s->rooms[s->start])
+			i_rooms++;
+		if (!(s->res.f_paths[i_paths] = (t_room**)ft_memalloc(sizeof(t_room*) * (i_rooms + 1))))
+			return (-1);
+		i_rooms = 0;
+		while (s->tmp.f_paths[i_paths][i_rooms] != &s->rooms[s->start])
+		{
+			s->res.f_paths[i_paths][i_rooms] = s->tmp.f_paths[i_paths][i_rooms];
+			i_rooms++;
+		}
+		s->res.f_paths[i_paths][i_rooms] = &s->rooms[s->start];
+		i_paths++;
+	}
 	return (1);
 }
 
@@ -186,16 +215,13 @@ int		del_paths(t_struct *s, int i_tmp)
 	{
 		if (i_new < i_tmp)
 			path_tab[i_new] = s->tmp.f_paths[i_new];
+		if (i_new == i_tmp)
+			free(s->tmp.f_paths[i_new]);
 		if (i_new > i_tmp)
 			path_tab[i_new - 1] = s->tmp.f_paths[i_new];
 		i_new++;
 	}
-	if (s->res.f_paths)
-	{
-		if (s->res.f_paths != s->tmp.f_paths)
-			free(s->tmp.f_paths);
-
-	}
+	free(s->tmp.f_paths);
 	s->tmp.f_paths = path_tab;
 	s->tmp.nb_f_paths--;
 	return (1);
