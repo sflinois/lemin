@@ -6,7 +6,7 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:35:24 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/27 18:28:54 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/29 14:11:00 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ void	print_resolved_map(t_struct *s)
 			}
 			i_paths++;
 		}
-		ft_printf("\n");
+		if (movement)
+			ft_printf("\n");
 	}
 }
 
@@ -144,11 +145,8 @@ int		main(int argc, char **argv)
 		ft_printf("ERROR\n");
 		return (1);
 	}
-	ft_printf("ok\n");
 	calc_res(&s);
 	init_res_map(&s);
 	print_resolved_map(&s);
-	while (1)
-		;
 	return (0);
 }
