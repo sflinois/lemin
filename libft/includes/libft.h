@@ -6,7 +6,7 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/15 11:22:10 by sflinois          #+#    #+#             */
-/*   Updated: 2017/05/30 17:49:41 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/29 15:19:54 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,6 @@ int					ft_printf(const char *format, ...);
 t_matrix			*ft_mtxnew(int nb_rows, int nb_cols, int **tab);
 t_matrix			*ft_mtxmult(t_matrix *a, t_matrix *b);
 t_matrix			*ft_mtxmultint(int a, t_matrix *b);
+void				ft_exit(char *msg);
 
 #endif

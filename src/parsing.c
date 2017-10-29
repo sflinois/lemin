@@ -6,7 +6,7 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:30:29 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/27 17:11:57 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/29 14:14:20 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,10 @@ int	pars_args(int argc, char **argv, t_struct *s)
 	int		line_type;
 	int		fd;
 
-	if (argc != 2)
-		return (0);
 	line = NULL;
 	line_type = 0;
 	fd = open(argv[1], O_RDONLY);
-	while (get_next_line(fd, &line) > 0 && line_type >= 0)
+	while (get_next_line(fd, &line) > 0 && line_type >= 0 && argc == 2)
 	{
 		if (line_type == 0)
 			line_type = get_ants(line, s);

@@ -6,7 +6,7 @@
 #    By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/10 11:48:48 by sflinois          #+#    #+#              #
-#    Updated: 2017/10/26 19:39:27 by sflinois         ###   ########.fr        #
+#    Updated: 2017/10/29 14:56:25 by sflinois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CCGREEN = "\033[0;32m"
 CCEND = "\033[0m"
 
 SRC_PATH = src
-SRC_NAME = lem_in.c init.c parsing.c check_line.c print.c resolve.c
+SRC_NAME = lem_in.c init_room.c init_path.c parsing.c check_line.c print.c resolve.c calc_res.c new_res.c
 OBJ_PATH = objs
 CPPFLAGS = -Iincludes
 

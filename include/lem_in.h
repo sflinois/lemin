@@ -6,7 +6,7 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/27 16:31:59 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/27 16:33:28 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/29 16:43:56 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct		s_struct
 void				print_rooms(t_struct *s);
 void				print_res(t_res res, t_struct *s);
 void				print_path(t_room **path, int length);
+void				print_resolved_map(t_struct *s);
 void				init_struct(t_struct *s);
 int					pars_args(int argc, char **argv, t_struct *s);
 int					is_room_line(char *line);
@@ -67,4 +68,6 @@ int					is_room_dup(t_struct *s, t_room room);
 int					insert_path(char *line, t_struct *s);
 int					insert_room(char *line, t_struct *s, int place);
 int					resolve(t_struct *s, int nb_paths);
+int					create_new_path(t_struct *s);
+int					get_best_paths(t_struct *s);
 #endif

@@ -6,7 +6,7 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:24:42 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/27 16:46:03 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/29 14:42:17 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,6 @@
 #include "../libft/includes/libft.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-void		init_struct(t_struct *s)
-{
-	s->nb_ants = 0;
-	s->nb_rooms = 0;
-	s->rooms = NULL;
-	s->start = -1;
-	s->end = -1;
-	s->res.nb_f_paths = 0;
-	s->res.nb_turns = 0;
-	s->res.f_paths = NULL;
-}
 
 t_room		get_room(char *line)
 {
@@ -86,6 +74,19 @@ int			create_new_room(t_struct *s)
 	return (i);
 }
 
+void		replace_room(t_room *room, t_room new_room, int status)
+{
+	room->name = new_room.name;
+	room->x = new_room.x;
+	room->y = new_room.y;
+	room->status = status;
+	room->is_used = 0;
+	room->paths = NULL;
+	room->nb_paths = 0;
+	room->ant = 0;
+	room->ants_left = 0;
+}
+
 int			insert_room(char *line, t_struct *s, int place)
 {
 	int		i_room;
@@ -96,15 +97,7 @@ int			insert_room(char *line, t_struct *s, int place)
 		return (-1);
 	if ((i_room = create_new_room(s)) == -1)
 		return (-1);
-	s->rooms[i_room].name = new_room.name;
-	s->rooms[i_room].x = new_room.x;
-	s->rooms[i_room].y = new_room.y;
-	s->rooms[i_room].status = place;
-	s->rooms[i_room].is_used = 0;
-	s->rooms[i_room].paths = NULL;
-	s->rooms[i_room].nb_paths = 0;
-	s->rooms[i_room].ant = 0;
-	s->rooms[i_room].ants_left = 0;
+	replace_room(&s->rooms[i_room], new_room, place);
 	if (place == 2)
 	{
 		if (s->start != -1)
@@ -118,62 +111,4 @@ int			insert_room(char *line, t_struct *s, int place)
 		s->end = i_room;
 	}
 	return (1);
-}
-
-int			add_path(t_struct *s, int i_room, char *name)
-{
-	int		i_room_path;
-	int		i_path;
-	t_room	**path_tab;
-
-	i_room_path = 0;
-	while (i_room_path < s->nb_rooms && ft_strcmp(s->rooms[i_room_path].name, name) != 0)
-		i_room_path++;
-	if (i_room_path == s->nb_rooms || i_room_path == i_room)
-		return (-2);
-	if (!(path_tab = (t_room**)ft_memalloc(sizeof(t_room*) * (s->rooms[i_room].nb_paths + 1))))
-		return (-2);
-	i_path = 0;
-	while (i_path < s->rooms[i_room].nb_paths)
-	{
-		if (name == s->rooms[i_room].paths[i_path]->name)
-		{
-			free(path_tab);
-			return (i_room);
-		}
-		path_tab[i_path] = s->rooms[i_room].paths[i_path];
-		i_path++;
-	}
-	if (s->rooms[i_room].nb_paths > 0)
-		free(s->rooms[i_room].paths);
-	path_tab[i_path] = &(s->rooms[i_room_path]);
-	s->rooms[i_room].paths = path_tab;
-	s->rooms[i_room].nb_paths++;
-	return (i_room);
-}
-
-int			insert_path(char *line, t_struct *s)
-{
-	int		i_room;
-	int		i;
-	char	*name1;
-	char	*name2;
-
-	i = 0;
-	while (line[i] != '-')
-		i++;
-	name1 = ft_strndup(line, i);
-	name2 = ft_strdup(line + i + 1);
-	i_room = 0;
-	while (i_room < s->nb_rooms && i_room != -1)
-	{
-		if (ft_strcmp(s->rooms[i_room].name, name1) == 0)
-			i_room = add_path(s, i_room, name2);
-		if (ft_strcmp(s->rooms[i_room].name, name2) == 0)
-			i_room = add_path(s, i_room, name1);
-		i_room++;
-	}
-	free(name1);
-	free(name2);
-	return (i_room == -1 ? -1 : 4);
 }

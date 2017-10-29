@@ -6,7 +6,7 @@
 /*   By: sflinois <sflinois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 19:28:02 by sflinois          #+#    #+#             */
-/*   Updated: 2017/10/27 16:34:17 by sflinois         ###   ########.fr       */
+/*   Updated: 2017/10/29 17:12:56 by sflinois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@ int	is_room_line(char *line)
 	while (line[i] && ft_isprint(line[i]) && line[i] != '-' &&
 			line[i] != ' ' && line[i] != '#')
 		i++;
-	if (line[i] && line[i] == ' ' &&
-			(line[i + 1] == '-' || ft_isdigit(line[i + 1])))
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	if (line[i] == '-' || ft_isdigit(line[i]))
 		i += line[i + 1] == '-' ? 2 : 1;
 	else
 		return (0);
 	while (line[i] && ft_isdigit(line[i]))
 		i++;
-	if (line[i] && line[i] == ' ' &&
-			(line[i + 1] == '-' || ft_isdigit(line[i + 1])))
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
+	if (line[i] == '-' || ft_isdigit(line[i]))
 		i += line[i + 1] == '-' ? 2 : 1;
 	else
 		return (0);
