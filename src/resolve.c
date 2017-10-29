@@ -248,6 +248,8 @@ int		resolve(t_struct *s, int nb_paths)
 				if (!del_paths(s, i_tmp))
 					return (-1);
 			}
+			if (s->rooms[s->start].nb_paths > 8 && s->rooms[s->end].nb_paths > 8)
+				i = s->rooms[s->start].nb_paths;
 		}
 		i++;
 	}
